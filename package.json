@@ -11,5 +11,8 @@
     "url": "git+https://github.com/VanHoanTran/fragments.git"
   },
   "author": "Van Hoan Tran",
-  "license": "UNLICENSED"
+  "license": "UNLICENSED",
+  "devDependencies": {
+    "prettier": "2.7.1"
+  }
 }
