@@ -6,6 +6,8 @@ This is a node.js based REST API using Express.
 
 # Development server
 
+Run `npm install` to install node modules before running the application
+
 Run any options below for a dev server. Navigate to http://localhost:8080/.
 
 ```sh
