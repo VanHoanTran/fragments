@@ -68,7 +68,7 @@ typings/
 # Yarn Integrity file
 .yarn-integrity
 
-# dotenv environment variables file
+# Don't include .env, which might have sensitive information
 .env
 .env.test
 
