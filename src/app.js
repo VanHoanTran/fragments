@@ -6,8 +6,6 @@ const helmet = require('helmet');
 
 const compression = require('compression');
 
-
-
 const logger = require('./logger');
 const pino = require('pino-http')({
   // Use our default logger instance, which is already configured
@@ -19,6 +17,7 @@ const app = express();
 
 const passport = require('passport');
 const authorization = require('./authorization');
+
 
 // Use logging middleware
 app.use(pino);
@@ -37,9 +36,9 @@ app.use(compression());
 passport.use(authorization.strategy());
 app.use(passport.initialize());
 
+
+
 app.use('/', require('./routes'));
-
-
 
 
 // Add 404 middleware to handle any requests for resources that can't be found
