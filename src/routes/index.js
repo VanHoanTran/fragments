@@ -5,6 +5,14 @@ const express = require('express');
 // version and author from package.json
 const { version, author } = require('../../package.json');
 
+//create github url
+const githubUrl = 'https://github.com/VanHoanTran/fragments';
+
+// create returned data for health check
+const data = {version, author, githubUrl};
+
+// import the createSuccessResponse function 
+const { createSuccessResponse} = require('../response.js');
 
 // Our authorization middleware
 const { authenticate } = require('../authorization');
@@ -26,13 +34,11 @@ router.get('/', (req, res) => {
   // Client's shouldn't cache this response (always request it fresh)
   res.setHeader('Cache-Control', 'no-cache');
   // Send a 200 'OK' response
-  res.status(200).json({
-    status: 'ok',
-    author,
-    // Use your own GitHub URL for this...
-    githubUrl: 'https://github.com/VanHoanTran/fragments',
-    version,
-  });
+  res.status(200).json(createSuccessResponse(data));
+  
 });
+
+
+
 
 module.exports = router;
