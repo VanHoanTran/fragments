@@ -52,7 +52,7 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: '16'
-          cache: 'true'
+          cache: 'npm'
       - name: Install node dependencies and run tests
         # There are two ways we could do this:
         #
