@@ -46,7 +46,7 @@ class Fragment {
 
     this.ownerId = ownerId;
     this.type = type;
-    this.id = id != undefined ? id : randomUUID();
+    this.id =  id || randomUUID();
     this.created = created || new Date().toISOString();
     this.updated = updated || new Date().toISOString();
     this.size = size;
@@ -74,7 +74,7 @@ class Fragment {
     // TODO
     const fragment = await readFragment(ownerId, id);
     if (!fragment) 
-      throw new Error(`User ownerId =${ownerId} Not Found!`);
+      throw new Error(`OwnerId =${ownerId} Not Found!`);
     return fragment;
   }
 
@@ -96,7 +96,7 @@ class Fragment {
   save() {
     // TODO
     this.updated = new Date().toISOString();
-    writeFragment(this);
+    return writeFragment(this);
   }
 
   /**
@@ -116,7 +116,7 @@ class Fragment {
     // TODO
     this.updated = new Date().toISOString();
     this.size = data.byteLength;
-    await writeFragmentData(this.ownerId, this.id, data)
+    return await writeFragmentData(this.ownerId, this.id, data)
   }
 
   /**
