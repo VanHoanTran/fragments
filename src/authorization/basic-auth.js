@@ -6,7 +6,7 @@
 const auth = require('http-auth');
 const passport = require('passport');
 const authPassport = require('http-auth-passport');
-
+const authorize = require('./authorize-middleware');
 // We expect HTPASSWD_FILE to be defined.
 if (!process.env.HTPASSWD_FILE) {
   throw new Error('missing expected env var: HTPASSWD_FILE');
@@ -21,4 +21,4 @@ module.exports.strategy = () =>
     })
   );
 
-module.exports.authenticate = () => passport.authenticate('http', { session: false });
+  module.exports.authenticate = () => authorize('http');
