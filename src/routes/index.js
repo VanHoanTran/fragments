@@ -12,7 +12,7 @@ const githubUrl = 'https://github.com/VanHoanTran/fragments';
 const data = {version, author, githubUrl};
 
 // import the createSuccessResponse function 
-const { createSuccessResponse} = require('../response.js');
+const { createSuccessResponse } = require('../response');
 
 // Our authorization middleware
 const { authenticate } = require('../authorization');
@@ -26,6 +26,7 @@ const router = express.Router();
  */
  router.use(`/v1`, authenticate(), require('./api'));
 
+ 
 /**
  * Define a simple health check route. If the server is running
  * we'll respond with a 200 OK.  If not, the server isn't healthy.
@@ -37,8 +38,5 @@ router.get('/', (req, res) => {
   res.status(200).json(createSuccessResponse(data));
   
 });
-
-
-
 
 module.exports = router;
