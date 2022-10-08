@@ -30,25 +30,23 @@ const {
 
 class Fragment {
   constructor({ id, ownerId, created, updated, type, size = 0 }) {
-    if(!type || !ownerId){
+    if (!type || !ownerId) {
       throw new Error(`ownerId and type are required, got type=${type}, got ownerId=${ownerId}`);
     }
 
-    if(!Fragment.isSupportedType(type)){
+    if (!Fragment.isSupportedType(type)) {
       throw new Error(`unsupported type, got type=${type}`);
     }
 
-    if(typeof size != 'number' || size < 0){
+    if (typeof size != 'number' || size < 0) {
       throw new Error(`size must be 0 or a positive number, got size=${size}`);
     }
 
-
-
+    this.id = id || randomUUID();
     this.ownerId = ownerId;
-    this.type = type;
-    this.id =  id || randomUUID();
     this.created = created || new Date().toISOString();
     this.updated = updated || new Date().toISOString();
+    this.type = type;
     this.size = size;
   }
 
@@ -73,8 +71,7 @@ class Fragment {
   static async byId(ownerId, id) {
     // TODO
     const fragment = await readFragment(ownerId, id);
-    if (!fragment) 
-      throw new Error(`OwnerId =${ownerId} Not Found!`);
+    if (!fragment) throw new Error(`OwnerId =${ownerId} Not Found!`);
     return fragment;
   }
 
@@ -104,7 +101,7 @@ class Fragment {
    * @returns Promise<Buffer>
    */
   getData() {
-    return readFragmentData(this.ownerId, this.id)
+    return readFragmentData(this.ownerId, this.id);
   }
 
   /**
@@ -116,7 +113,7 @@ class Fragment {
     // TODO
     this.updated = new Date().toISOString();
     this.size = data.byteLength;
-    return await writeFragmentData(this.ownerId, this.id, data)
+    return await writeFragmentData(this.ownerId, this.id, data);
   }
 
   /**
