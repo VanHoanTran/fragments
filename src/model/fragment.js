@@ -59,7 +59,11 @@ class Fragment {
   static async byUser(ownerId, expand = false) {
     // TODO
     const fragments = await listFragments(ownerId, expand);
-    return fragments;
+    if (expand || !fragments) {
+      return fragments.map((fragment) => new Fragment(fragment));
+    } else {
+      return fragments;
+    }
   }
 
   /**
@@ -72,7 +76,7 @@ class Fragment {
     // TODO
     const fragment = await readFragment(ownerId, id);
     if (!fragment) throw new Error(`OwnerId =${ownerId} Not Found!`);
-    return fragment;
+    return new Fragment(fragment);
   }
 
   /**
