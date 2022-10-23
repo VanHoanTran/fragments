@@ -29,8 +29,6 @@ WORKDIR /app
 # Copy the package.json and package-lock.json files into /app
 COPY package*.json ./
 
-# use a user group node
-USER node
 
 # Install node dependencies defined in package-lock.json
 RUN npm ci --only=production 
