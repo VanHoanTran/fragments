@@ -7,7 +7,7 @@ const express = require('express');
 
 const contentType = require('content-type');
 const logger = require('../../logger');
-const {Fragment} = require('../../model/fragment');
+const { Fragment } = require('../../model/fragment');
 // Create a router on which to mount our API endpoints
 const router = express.Router();
 
@@ -33,4 +33,6 @@ router.get('/fragments', require('./get'));
 router.post('/fragments', rawBody(), require('./post'));
 // Other routes will go here later on...
 router.get('/fragments/:id', require('./get-by-id'));
+
+router.get('/fragments/:id/info', require('./get-by-id-info'));
 module.exports = router;
