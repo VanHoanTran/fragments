@@ -1,5 +1,5 @@
 //write your own tests here for ../../src/model/data/memory/index.js
-const { listFragments, writeFragment, readFragment, writeFragmentData, readFragmentData, deleteFragment} = require('../src/model/data/memory/index');
+const { listFragments, writeFragment, readFragment, writeFragmentData, readFragmentData, deleteFragment} = require('../../src/model/data/memory/index');
 
 
 describe('memory', () => {
