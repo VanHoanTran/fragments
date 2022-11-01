@@ -57,7 +57,7 @@ FROM node:16.18-alpine3.16@sha256:2175727cef5cad4020cb77c8c101d56ed41d44fbe9b115
 
 # Use /app as our working directory
 WORKDIR /app
-RUN apk add --no-cache dumb-init
+RUN apk add --no-cache dumb-init=1.2.5
 
 COPY --from=production --chown=node:node /app /app
 
