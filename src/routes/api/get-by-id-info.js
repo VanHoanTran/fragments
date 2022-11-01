@@ -5,7 +5,7 @@ module.exports = async (req, res) => {
     const frag = await Fragment.byId(req.user, req.params.id);
 
     if (!frag) {
-      return res.status(404).json(createErrorResponse(404, 'Theres no fragment with this id'));
+      return res.status(404).json(createErrorResponse(404, 'Theres no fragment related to this id'));
     }
     res.status(200).json(
       createSuccessResponse({
