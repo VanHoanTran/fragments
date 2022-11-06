@@ -115,9 +115,9 @@ class Fragment {
    */
   async setData(data) {
     // TODO
-    this.updated = new Date().toISOString();
+    //this.updated = new Date().toISOString();
     this.size = data.byteLength;
-    data.save();
+    this.save();
     return await writeFragmentData(this.ownerId, this.id, data);
   }
 
