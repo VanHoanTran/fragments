@@ -6,9 +6,8 @@ module.exports = async (req, res) => {
     logger.debug(`ownerId=${req.user}, id=${req.params.id}`);
     const fragment = await Fragment.byId(req.user, req.params.id);
 
+    const data = await fragment.getData();
     res.setHeader('Content-Type', fragment.type);
-
-    var data = fragment.getData();
     res.status(200).send(data);
   } catch (error) {
     logger.debug(`ownerId=${req.user}, id=${req.params.id}`);
