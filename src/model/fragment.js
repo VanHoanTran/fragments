@@ -154,8 +154,8 @@ class Fragment {
    */
   static isSupportedType(value) {
     // TODO
-    const { type } = contentType.parse(value);
-    return validTypes.includes(type);
+    //const { type } = contentType.parse(value);
+    return validTypes.includes(value);
   }
 }
 
