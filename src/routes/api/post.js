@@ -13,21 +13,18 @@ module.exports = async (req, res) => {
   // TODO: this is just a placeholder to get something working...
 
   try {
-    logger.info({ 'content-type': req.get('Content-Type') });
     let fragment = new Fragment({
       ownerId: req.user,
       type: req.get('Content-Type'),
     });
-
     await fragment.save();
-
     await fragment.setData(req.body);
-
+    logger.debug({ type: fragment.type }, 'Fragment type:');
     res.set('content-type', fragment.type);
     res.set('Location', `${API_URL}/v1/fragments/${fragment.id}`);
 
     res.status(201).json(createSuccessResponse({ fragment: fragment }));
-    logger.info(createSuccessResponse({ fragment: fragment }), 'successfully post fragment');
+    logger.debug(createSuccessResponse({ fragment: fragment }), 'Fragment posted successfully');
   } catch (err) {
     logger.error({ err }, 'failed to post fragment');
     return res.status(415).json(createErrorResponse(415, 'Unsupported Media Type'));
