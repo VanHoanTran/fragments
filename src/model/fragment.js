@@ -4,6 +4,13 @@ const { randomUUID } = require('crypto');
 // Use https://www.npmjs.com/package/content-type to create/parse Content-Type headers
 const contentType = require('content-type');
 
+//https://www.npmjs.com/package/markdown-it
+var md = require('markdown-it')({
+  html: true,
+});
+
+const sharp = require('sharp');
+
 const validTypes = [
   `text/plain`,
   `text/markdown`,
@@ -121,6 +128,32 @@ class Fragment {
   }
 
   /**
+   * convert the fragment's data to convertible type of fragment's data
+   * @param {string} convertible_type
+   * @returns {Buffer} converted data
+   */
+  async convertData(convertingType) {
+    let data = await this.getData();
+    if (this.mimeType != convertingType) {
+      if (this.mimeType === 'text/markdown' && convertingType === 'text/html') {
+        data = md.render(data.toString());
+        data = Buffer.from(data);
+      } else if (convertingType === 'image/webp') {
+        data = await sharp(data).webp().toBuffer();
+      } else if (convertingType === 'image/png') {
+        data = await sharp(data).png().toBuffer();
+      } else if (convertingType === 'image/gif') {
+        data = await sharp(data).gif().toBuffer();
+      } else if (convertingType === 'image/jpeg') {
+        data = await sharp(data).jpeg().toBuffer();
+      } else {
+        data = this.getData();
+      }
+    }
+    return data;
+  }
+
+  /**
    * Returns the mime type (e.g., without encoding) for the fragment's type:
    * "text/html; charset=utf-8" -> "text/html"
    * @returns {string} fragment's mime type (without encoding)
@@ -144,7 +177,19 @@ class Fragment {
    */
   get formats() {
     // TODO
-    return validTypes;
+    let convertedTypes = [];
+    if (this.mimeType === 'text/plain') {
+      convertedTypes = ['text/plain'];
+    } else if (this.mimeType === 'text/markdown') {
+      convertedTypes = ['text/plain', 'text/html', 'text/markdown'];
+    } else if (this.mimeType === 'text/html') {
+      convertedTypes = ['text/plain', 'text/html'];
+    } else if (this.mimeType === 'application/json') {
+      convertedTypes = ['text/plain', 'application/json'];
+    } else {
+      convertedTypes = ['image/png', 'image/jpeg', 'image/webp', 'image/gif'];
+    }
+    return convertedTypes;
   }
 
   /**
@@ -154,8 +199,8 @@ class Fragment {
    */
   static isSupportedType(value) {
     // TODO
-    //const { type } = contentType.parse(value);
-    return validTypes.includes(value);
+    const { type } = contentType.parse(value);
+    return validTypes.includes(type);
   }
 }
 
