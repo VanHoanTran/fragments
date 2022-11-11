@@ -21,7 +21,7 @@ const rawBody = () =>
       // a Buffer (e.g., `Buffer.isBuffer(req.body) === true`). If not, `req.body`
       // will be equal to an empty Object `{}` and `Buffer.isBuffer(req.body) === false`
       const { type } = contentType.parse(req);
-      logger.debug('Type after parse: ' + type);
+      logger.debug({ type: type, isSupported: Fragment.isSupportedType(type) }, 'Supported type: ');
       return Fragment.isSupportedType(type);
     },
   });
@@ -37,8 +37,8 @@ router.get('/fragments/:id', require('./get-by-id'));
 
 router.get('/fragments/:id/info', require('./get-by-id-info'));
 
-router.put('/fragments/:id', rawBody(), require('./put'));
+//router.put('/fragments/:id', rawBody(), require('./put'));
 
-router.delete('/fragments/:id', require('./delete'));
+//router.delete('/fragments/:id', require('./delete'));
 
 module.exports = router;
