@@ -5,8 +5,6 @@ const wait = async (ms = 10) => new Promise((resolve) => setTimeout(resolve, ms)
 
 const validTypes = [
   `text/plain`,
-  /*
-   Currently, only text/plain is supported. Others will be added later.
   `text/markdown`,
   `text/html`,
   `application/json`,
@@ -14,7 +12,6 @@ const validTypes = [
   `image/jpeg`,
   `image/webp`,
   `image/gif`,
-  */
 ];
 
 describe('Fragment class', () => {
@@ -22,7 +19,7 @@ describe('Fragment class', () => {
     validTypes.forEach((format) => expect(Fragment.isSupportedType(format)).toBe(true));
   });
 
-   describe('Fragment()', () => {
+  describe('Fragment()', () => {
     test('ownerId and type are required', () => {
       expect(() => new Fragment({})).toThrow();
     });
@@ -168,8 +165,7 @@ describe('Fragment class', () => {
     });
   });
 
-   describe('save(), getData(), setData(), byId(), byUser(), delete()', () => {
-
+  describe('save(), getData(), setData(), byId(), byUser(), delete()', () => {
     test('byUser() returns an empty array if there are no fragments for this user', async () => {
       expect(await Fragment.byUser('1234')).toEqual([]);
     });
@@ -251,6 +247,6 @@ describe('Fragment class', () => {
 
       await Fragment.delete('1234', fragment.id);
       expect(() => Fragment.byId('1234', fragment.id)).rejects.toThrow();
-     });
-   });
+    });
+  });
 });

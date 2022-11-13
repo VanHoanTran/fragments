@@ -10,21 +10,23 @@ describe('POST /v1/fragments', () => {
 
   // If the wrong username/password pair are used (no such user), it should be forbidden
   test('incorrect credentials are denied', () =>
-    request(app).post('/v1/fragments').auth('InvalidUsername@email.com', 'InvalidPassword').expect(401));
+    request(app)
+      .post('/v1/fragments')
+      .auth('InvalidUsername@email.com', 'InvalidPassword')
+      .expect(401));
 
   // If the user post unsupported type will  receive an HTTP 415 response
   test('Posting unsupported type should return HTTP 415 response ', async () => {
-    const data = {key: "value"};
     const res = await request(app)
       .post('/v1/fragments')
       .auth('user1@email.com', 'password1')
-      .set({ 'Content-Type': 'application/json' })
-      .send(data);
+      .set({ 'Content-Type': 'audio/mpeg' })
+      .send('12 12 12 12 12');
 
     expect(res.body.status).toBe('error');
     expect(res.statusCode).toBe(415);
   });
- // If the authenticated user posts supported type, it returns an HTTP 201 response
+  // If the authenticated user posts supported type, it returns an HTTP 201 response
   test('Posting supported type should return HTTP 201 response ', async () => {
     const res = await request(app)
       .post('/v1/fragments')
@@ -46,8 +48,4 @@ describe('POST /v1/fragments', () => {
     const id = JSON.parse(res.text).fragment.id;
     expect(res.headers.location).toEqual(`${API_URL}/v1/fragments/${id}`);
   });
-  
-
-
 });
-
