@@ -20,8 +20,6 @@ const validTypes = [
   `image/jpeg`,
   `image/webp`,
   `image/gif`,
-  /*
-   */
 ];
 
 // Functions for working with fragment metadata/data using our DB
