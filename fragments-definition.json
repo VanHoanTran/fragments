@@ -31,6 +31,14 @@
           "value": "http://localhost:8080"
         },
         {
+          "name": "AWS_COGNITO_CLIENT_ID",
+          "value": "k1apslsdeurr90uc4vb7tba3u"
+        },
+        {
+          "name": "AWS_COGNITO_POOL_ID",
+          "value": "us-east-1_cV0Nt4lkf"
+        },
+        {
           "name": "PORT",
           "value": "8080"
         }
