@@ -122,6 +122,7 @@ async function deleteFragment(ownerId, id) {
 
   // Delete metadata
   metadata.del(ownerId, id);
+
   const params = {
     Bucket: process.env.AWS_S3_BUCKET_NAME,
     // Our key will be a mix of the ownerID and fragment id, written as a path
@@ -137,7 +138,7 @@ async function deleteFragment(ownerId, id) {
   } catch (err) {
     const { Bucket, Key } = params;
     logger.error({ err, Bucket, Key }, 'Unable to delete fragment data from S3');
-    throw new Error('unable to delete fragment data');
+    throw new Error('Unable to delete fragment data from S3');
   }
 }
 
