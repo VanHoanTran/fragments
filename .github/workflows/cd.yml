@@ -80,9 +80,16 @@ jobs:
           container-name: fragments
           # Use the image we just built and pushed to ECR for this tag
           image: ${{ env.ECR_REGISTRY }}/${{ env.ECR_REPO }}:${{ env.VERSION_TAG }}
-          #environment-variables: |
-          #  LOG_LEVEL=info
-          #  NODE_ENV=production
+        # Add all the necessary environment variables, using GitHub Encrypted Secrets
+        # for any values that should not be checked into git directly.  Here are
+        # a few to get you started, but you should fill in the rest yourself.
+        environment-variables: |
+          LOG_LEVEL=info
+          NODE_ENV=production
+          AWS_ACCESS_KEY_ID=${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY=${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_SESSION_TOKEN=${{ secrets.AWS_SESSION_TOKEN }}
+        # ...continue the rest here...
       - name: Deploy Amazon ECS task definition
         uses: aws-actions/amazon-ecs-deploy-task-definition@v1
         with:
