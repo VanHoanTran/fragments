@@ -1,4 +1,4 @@
-# tests/integration/delete-fragment.hurl
+# tests/integration/put-fragments.hurl
 # Authenticated POST to /v1/fragments
 POST http://localhost:8080/v1/fragments
 # We're sending a plain text fragment
