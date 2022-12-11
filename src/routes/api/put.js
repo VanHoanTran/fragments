@@ -16,7 +16,7 @@ module.exports = async (req, res) => {
       logger.debug({incoming: incomingType, existing: fragment.type}, ' Data Type Comparison: ');
         if(incomingType != fragment.type){
             logger.debug({incoming: incomingType ,existing: fragment.type}, ' Fragment type missed match');
-            return res.status(400).json(createErrorResponse(400, 'Fragment type missed match. Tt should be a ' + fragment.type));
+            return res.status(400).json(createErrorResponse(400, 'Fragment type mismatch. Tt should be a ' + fragment.type));
         }
         await fragment.setData(req.body);
         // get the fragment from database
