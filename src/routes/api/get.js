@@ -10,8 +10,7 @@ const logger = require('../../logger');
 module.exports = async (req, res) => {
   // TODO: this is just a placeholder to get something working...
   logger.debug({ query: req.query }, 'Request Query: ');
-  let expand;
-  expand = req.query.expand && req.query.expand === '1' ? true : false;
+  let expand = req.query.expand === '1';
   logger.debug({ user: req.user, expand }, 'Information received: ');
   const fragments = await Fragment.byUser(req.user, expand);
   res.status(200).json(
