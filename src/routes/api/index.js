@@ -37,7 +37,7 @@ router.get('/fragments/:id', require('./get-by-id'));
 
 router.get('/fragments/:id/info', require('./get-by-id-info'));
 
-//router.put('/fragments/:id', rawBody(), require('./put'));
+router.put('/fragments/:id', rawBody(), require('./put'));
 
 router.delete('/fragments/:id', require('./delete'));
 
