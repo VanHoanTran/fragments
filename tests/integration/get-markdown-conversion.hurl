@@ -34,3 +34,11 @@ HTTP/1.1 200
 Content-Type: text/plain
 [Asserts]
 body == "# This is a fragment!"
+
+# Try to convert that fragment to pdf
+GET {{url}}.pdf
+[BasicAuth]
+user1@email.com:password1
+
+# 415 HTML response , type-conversion is not supported.
+HTTP/1.1 415
