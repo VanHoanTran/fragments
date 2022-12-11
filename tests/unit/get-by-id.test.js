@@ -142,6 +142,7 @@ describe('GET /v1/fragments/:id.ext', () => {
     expect(res.text).toEqual('# Markdown test');
   });
 
+
   test('unsupported type conversion should return HTTP 415 response', async () => {
     const postRes = await request(app)
       .post('/v1/fragments')
