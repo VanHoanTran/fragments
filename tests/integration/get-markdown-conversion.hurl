@@ -1,4 +1,4 @@
-# tests/integration/get-markdown-as-html.hurl
+# tests/integration/get-markdown-conversion.hurl
 # Authenticated POST to /v1/fragments
 POST http://localhost:8080/v1/fragments
 # We're sending a markdown text fragment
@@ -13,7 +13,7 @@ user1@email.com:password1
 [Captures]
 url: header "Location"
 
-# Try to convert that fragment to text
+# Try to convert that fragment to text html
 GET {{url}}.html
 [BasicAuth]
 user1@email.com:password1
@@ -23,3 +23,14 @@ HTTP/1.1 200
 Content-Type: text/html
 [Asserts]
 body == "<h1>This is a fragment!</h1>\n"
+
+# Try to convert that fragment to text
+GET {{url}}.txt
+[BasicAuth]
+user1@email.com:password1
+
+# 200 HTML response , content-type should be text/plain
+HTTP/1.1 200
+Content-Type: text/plain
+[Asserts]
+body == "# This is a fragment!"
