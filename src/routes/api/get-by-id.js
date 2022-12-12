@@ -1,17 +1,17 @@
 const logger = require('../../logger');
 const { Fragment } = require('../../model/fragment');
 const { createErrorResponse } = require('../../response');
+//https://nodejs.org/api/path.html
+const path = require('node:path');
 //https://www.npmjs.com/package/mime-types
 const mime = require('mime-types');
 module.exports = async (req, res) => {
   try {
-    const idExt = req.params.id.split('.');
-    const id = idExt[0];
-    const ext = idExt[1]; //.md, .txt, .json, etc.
-    logger.debug({ ownerId: req.user, fragmentsId: id, ext: ext }, 'Provided information: ');
-    const fragment = await Fragment.byId(req.user, id);
+    const {name, ext} = path.parse(req.params.id); 
+    logger.debug({ ownerId: req.user, fragmentsId: name, ext: ext }, 'Provided information: ');
+    const fragment = await Fragment.byId(req.user, name);
     let data;
-    if (!idExt[1]) {
+    if (!ext) {
       data = await fragment.getData();
       // keep content type as fragment's type
       res.setHeader('Content-Type', fragment.type);
