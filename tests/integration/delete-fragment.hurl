@@ -25,12 +25,3 @@ user1@email.com:password1
 HTTP/1.1 200
 [Asserts]
 jsonpath "$.status" == "ok"
-
-# Try to delete the second time 
-DELETE {{url}} 
-[BasicAuth]
-user1@email.com:password1
-
-# GET 404 response because no such fragment exists with the given id
-HTTP/1.1 404
-
