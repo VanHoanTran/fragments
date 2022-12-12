@@ -10,14 +10,16 @@ user1@email.com:password1
 # Body of the request goes in ```...``` when it's a string
 ```This is a fragment!```
 
+
+HTTP/1.1 201
 [Captures]
 url: header "Location"
 
 # PUT request to update fragment's data
 PUT {{url}} 
+Content-Type: text/markdown
 [BasicAuth]
 user1@email.com:password1
-Content-Type: text/markdown
 ```# An alternative fragment``` 
 
 # GOT response 400

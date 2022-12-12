@@ -1,25 +1,29 @@
 # tests/integration/delete-fragment.hurl
-# Authenticated POST to /v1/fragments
+# Post fragments charset Test
 POST http://localhost:8080/v1/fragments
-# We're sending a plain text fragment
-Content-Type: text/plain
+# We're sending an application/json
+Content-Type: application/json
 # Include HTTP Basic Auth credentials
 #Authorization: Basic dXNlcjFAZW1haWwuY29tOnBhc3N3b3JkMQ==
 [BasicAuth]
 user1@email.com:password1
-# Body of the request goes in ```...``` when it's a string
-```This is a fragment!```
+# Body of the request is a json object
+{"json": "true"}
 
+#we expect to get back an HTTP 201
+HTTP/1.1 201
+# Capture the Location URL into a variable named `url`
 [Captures]
 url: header "Location"
 
 # DELETE request with authorization
-DELETE {{url}} 
+DELETE {{url}}
 [BasicAuth]
 user1@email.com:password1
 
 # GOT response 200 successfully DELETE request
 HTTP/1.1 200
+[Asserts]
 jsonpath "$.status" == "ok"
 
 # Try to delete the second time 

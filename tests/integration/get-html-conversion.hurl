@@ -10,6 +10,7 @@ user1@email.com:password1
 # Body of the request goes in ```...``` when it's a string
 ```<h1>This is a fragment!</h1>```
 
+HTTP/1.1 201
 [Captures]
 url: header "Location"
 
